@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * A collection of module hooks for the timezone_js module.
+ */
+
+/**
+ * Implements hook_library_info_alter().
+ *
+ * We need to force the flot module to depend upon this module to ensure that
+ * the timezone_js files are included when needed.
+ */
+function timezone_js_library_info_alter(&$libraries, $extension) {
+  // We need to add this module as a dependency of the flot module.
+  if ($extension == "flot") {
+    $libraries['flot']['dependencies'][] = 'timezone_js/timezone_js';
+  }
+}

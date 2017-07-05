@@ -1,0 +1,15 @@
+name: 'Media Embed Test'
+description: 'Support module for the media embed tests.'
+type: module
+package: Testing
+# core: 8.x
+# version: VERSION
+dependencies:
+  - editor:editor
+  - ckeditor:ckeditor
+
+# Information added by Drupal.org packaging script on 2017-02-04
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'media'
+datestamp: 1486243387

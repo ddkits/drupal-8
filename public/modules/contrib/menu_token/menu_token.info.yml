@@ -1,0 +1,13 @@
+name: Menu token
+type: module
+description: Menu Token module provides tokens, that can be used in title or in path of menu items (links). For example, if you create a menu item with path: "user/[current-user:uid]", the url will be changed on the fly to: "user/1" (assuming you are user 1).
+# core: 8.x
+package: Custom
+configure: menu_token.available_entities_configuration_form
+dependencies:
+  - token
+# Information added by Drupal.org packaging script on 2017-06-12
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'menu_token'
+datestamp: 1497301145

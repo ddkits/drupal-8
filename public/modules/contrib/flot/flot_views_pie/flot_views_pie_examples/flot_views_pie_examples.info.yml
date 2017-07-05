@@ -1,0 +1,17 @@
+name: Flot Pie Chart Examples
+type: module
+description: 'This module demonstrates how to use the Flot piechart views formatter.'
+package: Graphing 
+# core: 8.x
+hidden: false
+dependencies:
+  - flot:flot
+  - flot_views_pie:flot_views_pie
+  - flot_examples:flot_examples
+  - views:views
+
+# Information added by Drupal.org packaging script on 2017-02-16
+version: '8.x-1.0-alpha3'
+core: '8.x'
+project: 'flot'
+datestamp: 1487266987

@@ -1,0 +1,5 @@
+timezone_js:
+  version: 1.x
+  js:
+    /libraries/timezone_js/date.js: {}
+    js/timezone_js.js: {}

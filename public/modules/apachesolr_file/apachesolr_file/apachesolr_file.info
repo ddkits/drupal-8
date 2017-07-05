@@ -1,0 +1,15 @@
+name = Apachesolr file
+description = Allows indexing of media file resources by Apache Solr.
+package = Search Toolkit
+core = 7.x
+files[] = apachesolr_file.install
+files[] = apachesolr_file.module
+dependencies[] = "apachesolr"
+dependencies[] = "file_entity"
+configure = admin/config/search/apachesolr/settings
+
+
+; Information added by drush on 2012-04-24
+version = "master-dev"
+project = "apachesolr_file"
+datestamp = "1335271072"

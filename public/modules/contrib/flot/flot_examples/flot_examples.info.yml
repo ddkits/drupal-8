@@ -1,0 +1,15 @@
+name: Flot Examples
+type: module
+description: 'This module provides example graphs using the flot plugin'
+package: Graphing
+dependencies:
+  - flot
+  - timezone_js
+# core: 8.x
+hidden: false
+
+# Information added by Drupal.org packaging script on 2017-02-16
+version: '8.x-1.0-alpha3'
+core: '8.x'
+project: 'flot'
+datestamp: 1487266987

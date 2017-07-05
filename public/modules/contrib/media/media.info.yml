@@ -1,0 +1,48 @@
+name: Media
+description: 'Media module for Drupal 8'
+type: module
+package: Media
+# core: 8.x
+dependencies:
+  - media_entity:media_entity
+  - media_entity_image:media_entity_image
+  - video_embed_field:video_embed_field
+  - video_embed_field:video_embed_media
+  - media_entity_slideshow:media_entity_slideshow
+  - media_entity_instagram:media_entity_instagram
+  - media_entity_twitter:media_entity_twitter
+  - media_entity_document:media_entity_document
+  - slick_media:slick_media
+  - entity_browser:entity_browser
+  - entity_browser:entity_browser_entity_form
+  - entity_embed:entity_embed
+  - dropzonejs:dropzonejs_eb_widget
+  - image_widget_crop:image_widget_crop
+  - drupal:link
+  - drupal:editor
+  - inline_entity_form:inline_entity_form
+test_dependencies:
+  - media_entity:media_entity
+  - media_entity_image:media_entity_image
+  - video_embed_field:video_embed_field
+  - video_embed_field:video_embed_media
+  - media_entity_slideshow:media_entity_slideshow
+  - media_entity_instagram:media_entity_instagram
+  - media_entity_twitter:media_entity_twitter
+  - media_entity_document:media_entity_document
+  - slick_media:slick_media
+  - entity_browser:entity_browser
+  - entity_browser:entity_browser_entity_form
+  - entity_embed:entity_embed
+  - dropzonejs:dropzonejs_eb_widget
+  - image_widget_crop:image_widget_crop
+  - drupal:link
+  - drupal:editor
+  - inline_entity_form:inline_entity_form
+
+
+# Information added by Drupal.org packaging script on 2017-02-04
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'media'
+datestamp: 1486243387

@@ -1,0 +1,49 @@
+{
+  "name": "elayyoub/DDkits",
+  "description": "DDkits.com",
+  "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mutasem Elayyoub",
+            "email": "melayyoub@outlook.com"
+        }
+    ],
+  "require": {
+    "overtrue/phplint": "^0.2.1",
+    "squizlabs/php_codesniffer": "2.9.x-dev",
+    "drupal/coder" : "dev-8.x-2.x",
+    "ext-xml": "*",
+    "ext-json": "*",
+    "ext-openssl": "*",
+    "ext-curl": "*",
+    "drush/drush": "~8.0",
+    "phing/phing": "^2.16",
+    "psy/psysh": "^0.8.5",
+    "guzzlehttp/guzzle": "^6.2",
+    "pear/HTTP_Request2": "^2.3"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "vendor-dir": "vendor",
+    "bin-dir": "vendor/bin"
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+            "phing -debug"
+        ],
+    "post-install-cmd": [
+            "phing -debug"
+        ],
+    "lint": [
+      "./vendor/bin/phplint",
+      "./vendor/bin/phpcs --config-set installed_paths ./../../drupal/coder/coder_sniffer",
+      "./vendor/bin/phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=install,module,php,inc"
+    ],
+    "test": [
+      "./vendor/bin/phplint --no-cache",
+      "./vendor/bin/phpcs --config-set installed_paths ./../../drupal/coder/coder_sniffer",
+      "./vendor/bin/phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=php,inc themes || true"
+    ]
+  }  
+}
