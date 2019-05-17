@@ -19,7 +19,6 @@
       "By default Drupal loads the autoloader from ./vendor/autoload.php.",
       "To change the autoloader you can edit ./autoload.php.",
       "This file specifies the packages.drupal.org repository.",
-      "You can read more about this composer repository at:",
       "https://www.drupal.org/node/2718229"
     ],
     "merge-plugin": {
