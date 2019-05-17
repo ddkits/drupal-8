@@ -6,31 +6,7 @@
   "require": {
     "composer/installers": "^1.0.24",
     "wikimedia/composer-merge-plugin": "^1.4",
-    "drupal/core": "^8.6.13",
-    "drupal/console": "*",
-    "drupal/devel": "*",
-    "drupal/kint": "*",
-    "drupal/superfish": "*",
-    "drupal/jsonapi": "*",
-    "drupal/admin_toolbar": "*",
-    "symfony/http-foundation": "*",
-    "drupal/entity_reference_revisions": "*",
-    "drupal/paragraphs": "*",
-    "drupal/select2": "*",
-    "drupal/block_field": "*",
-    "drupal/module_filter": "*",
-    "drupal/better_exposed_filters": "*",
-    "drupal/fontawesome": "*",
-    "drupal/menu_export": "*",
-    "drupal/views_accordion": "*",
-    "drupal/webform": "*",
-    "drupal/fixed_block_content": "*",
-    "drupal/styleguide": "*",
-    "drupal/toc_filter": "*",
-    "drupal/ctools": "*",
-    "drupal/panels": "*",
-    "drupal/pathauto": "*",
-    "drupal/slick_extras": "*"
+    "drupal/core": "^8.6.13"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -43,7 +19,6 @@
       "By default Drupal loads the autoloader from ./vendor/autoload.php.",
       "To change the autoloader you can edit ./autoload.php.",
       "This file specifies the packages.drupal.org repository.",
-      "You can read more about this composer repository at:",
       "https://www.drupal.org/node/2718229"
     ],
     "merge-plugin": {
@@ -83,4 +58,5 @@
     "type": "composer",
     "url": "https://packages.drupal.org/8"
   }]
+
 }
