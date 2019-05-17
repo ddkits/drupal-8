@@ -1,41 +1,109 @@
 {
-  "name": "elayyoub/DDkits",
-  "description": "DDkits.com",
-  "license": "proprietary",
-    "authors": [
-        {
-            "name": "Mutasem Elayyoub",
-            "email": "melayyoub@outlook.com"
-        }
-    ],
+  "name": "drupal/drupal",
+  "description": "Drupal is an open source content management platform powering millions of websites and applications.",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
   "require": {
+    "drupal/core": "^8.6",
     "overtrue/phplint": "*",
     "squizlabs/php_codesniffer": "*",
-    "drupal/coder" : "*",
-    "ext-xml": "*",
-    "ext-json": "*",
-    "ext-openssl": "*",
-    "ext-curl": "*",
-    "drush/drush": "*",
-    "phing/phing": "*",
-    "psy/psysh": "*",
-    "guzzlehttp/guzzle": "*",
-    "pear/HTTP_Request2": "*"
+    "composer/installers": "^1.0.24",
+    "wikimedia/composer-merge-plugin": "^1.4",
+    "drupal/apigee_edge": "^1.0",
+    "drupal/basic": "^2.0",
+    "drupal/console": "~1.0",
+    "drupal/search_api_pantheon": "~1.0",
+    "drupal/devel": "^1.2",
+    "drupal/kint": "^1.2",
+    "drupal/video_embed_field": "^2.0",
+    "drupal/slick": "^1.0",
+    "drupal/address": "~1.0",
+    "drupal/superfish": "^1.2",
+    "cweagans/composer-patches": "^1.6",
+    "drupal/entityqueue": "^1.0@alpha",
+    "drupal/sharethis": "^2.0@beta",
+    "drupal/rules": "^3.0@alpha",
+    "drupal/jsonapi": "^1.23",
+    "drupal/admin_toolbar": "^1.25",
+    "symfony/http-foundation": "~3.4.14",
+    "drupal/entity_reference_revisions": "^1.6",
+    "drupal/paragraphs": "^1.5",
+    "drupal/select2": "1.1.0",
+    "drupal/legal": "^1.0",
+    "drupal/block_field": "^1.0",
+    "drupal/module_filter": "^3.0",
+    "drupal/better_exposed_filters": "^3.0",
+    "drupal/fontawesome": "2.12",
+    "drupal/menu_export": "1.2",
+    "drupal/simplesamlphp_auth": "3.0",
+    "drupal/views_accordion": "1.2",
+    "drupal/webform": "^5.1",
+    "drupal/fixed_block_content": "^1.0",
+    "drupal/styleguide": "1.0.0-alpha3",
+    "drupal/toc_filter": "^2.0",
+    "drupal/ctools": "3.2",
+    "drupal/panels": "4.4",
+    "drupal/pathauto": "1.4",
+    "drupal/slick_extras": "1.0-rc2"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
-    "vendor-dir": "vendor",
-    "bin-dir": "vendor/bin"
+    "preferred-install": "dist",
+    "autoloader-suffix": "Drupal8",
+    "component-dir": "vendor/",
+    "secure-http": false,
+    "platform": {
+      "php": "7.2"
+    }
+  },
+  "extra": {
+    "_readme": [
+      "By default Drupal loads the autoloader from ./vendor/autoload.php.",
+      "To change the autoloader you can edit ./autoload.php.",
+      "This file specifies the packages.drupal.org repository.",
+      "You can read more about this composer repository at:",
+      "https://www.drupal.org/node/2718229"
+    ],
+    "merge-plugin": {
+      "include": [
+        "core/composer.json"
+      ],
+      "recurse": true,
+      "replace": false,
+      "merge-extra": false
+    },
+    "installer-paths": {
+      "public/core": ["type:drupal-core"],
+      "public/modules/contrib/{$name}": ["type:drupal-module"],
+      "public/profiles/contrib/{$name}": ["type:drupal-profile"],
+      "public/themes/contrib/{$name}": ["type:drupal-theme"],
+      "public/modules/custom/{$name}": ["type:drupal-custom-module"],
+      "public/themes/custom/{$name}": ["type:drupal-custom-theme"],
+      "public/libraries/{$name}": ["type:drupal-library"]
+    },
+    "patches": {
+      "drupal/simplesamlphp_auth": {
+        "Allow the module to be installed even if SimpleSAMLphp is not available": "https://www.drupal.org/files/issues/2019-02-13/simplesamlphp_auth-fatal-error-on-enable-2915568-31.patch"
+      }
+
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Drupal\\Core\\Composer\\": "core/lib/Drupal/Core/Composer"
+    }
   },
   "scripts": {
-    "post-create-project-cmd": [
-            "phing -debug"
-        ],
-    "post-install-cmd": [
-            "phing -debug"
-        ],
-    "lint": [
+    "pre-autoload-dump": "Drupal\\Core\\Composer\\Composer::preAutoloadDump",
+    "post-autoload-dump": "Drupal\\Core\\Composer\\Composer::ensureHtaccess",
+    "post-package-install": "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup",
+    "post-package-update": "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup",
+    "drupal-phpunit-upgrade-check": "Drupal\\Core\\Composer\\Composer::upgradePHPUnit",
+    "drupal-phpunit-upgrade": "@composer update phpunit/phpunit --with-dependencies --no-progress",
+    "phpcs": "phpcs --standard=core/phpcs.xml.dist --runtime-set installed_paths $($COMPOSER_BINARY config vendor-dir)/drupal/coder/coder_sniffer --",
+    "phpcbf": "phpcbf --standard=core/phpcs.xml.dist --runtime-set installed_paths $($COMPOSER_BINARY config vendor-dir)/drupal/coder/coder_sniffer --"
+  "lint": [
       "./vendor/bin/phplint",
       "./vendor/bin/phpcs --config-set installed_paths ./../../drupal/coder/coder_sniffer",
       "./vendor/bin/phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=install,module,php,inc"
@@ -45,5 +113,28 @@
       "./vendor/bin/phpcs --config-set installed_paths ./../../drupal/coder/coder_sniffer",
       "./vendor/bin/phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=php,inc themes || true"
     ]
-  }  
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    "assets": {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "woothemes/flexslider",
+        "version": "2.6.3",
+        "type": "drupal-library",
+        "source": {
+          "url": "https://github.com/woothemes/FlexSlider.git",
+          "type": "git",
+          "reference": "2.6.3"
+        }
+      }
+    }
+  ]
 }
