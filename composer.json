@@ -1,49 +1,86 @@
 {
-  "name": "elayyoub/DDkits",
-  "description": "DDkits.com",
-  "license": "proprietary",
-    "authors": [
-        {
-            "name": "Mutasem Elayyoub",
-            "email": "melayyoub@outlook.com"
-        }
-    ],
+  "name": "drupal/drupal",
+  "description": "Drupal is an open source content management platform powering millions of websites and applications.",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
   "require": {
-    "overtrue/phplint": "*",
-    "squizlabs/php_codesniffer": "*",
-    "drupal/coder" : "*",
-    "ext-xml": "*",
-    "ext-json": "*",
-    "ext-openssl": "*",
-    "ext-curl": "*",
-    "drush/drush": "*",
-    "phing/phing": "*",
-    "psy/psysh": "*",
-    "guzzlehttp/guzzle": "*",
-    "pear/HTTP_Request2": "*"
+    "composer/installers": "^1.0.24",
+    "wikimedia/composer-merge-plugin": "^1.4",
+    "drupal/core": "^8.6.13",
+    "drupal/console": "*",
+    "drupal/devel": "*",
+    "drupal/kint": "*",
+    "drupal/superfish": "*",
+    "drupal/jsonapi": "*",
+    "drupal/admin_toolbar": "*",
+    "symfony/http-foundation": "*",
+    "drupal/entity_reference_revisions": "*",
+    "drupal/paragraphs": "*",
+    "drupal/select2": "*",
+    "drupal/block_field": "*",
+    "drupal/module_filter": "*",
+    "drupal/better_exposed_filters": "*",
+    "drupal/fontawesome": "*",
+    "drupal/menu_export": "*",
+    "drupal/views_accordion": "*",
+    "drupal/webform": "*",
+    "drupal/fixed_block_content": "*",
+    "drupal/styleguide": "*",
+    "drupal/toc_filter": "*",
+    "drupal/ctools": "*",
+    "drupal/panels": "*",
+    "drupal/pathauto": "*",
+    "drupal/slick_extras": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
-    "vendor-dir": "vendor",
-    "bin-dir": "vendor/bin"
+    "preferred-install": "dist",
+    "autoloader-suffix": "Drupal8"
+  },
+  "extra": {
+    "_readme": [
+      "By default Drupal loads the autoloader from ./vendor/autoload.php.",
+      "To change the autoloader you can edit ./autoload.php.",
+      "This file specifies the packages.drupal.org repository.",
+      "You can read more about this composer repository at:",
+      "https://www.drupal.org/node/2718229"
+    ],
+    "merge-plugin": {
+      "include": [
+        "core/composer.json"
+      ],
+      "recurse": true,
+      "replace": false,
+      "merge-extra": false
+    },
+    "installer-paths": {
+      "core": ["type:drupal-core"],
+      "modules/contrib/{$name}": ["type:drupal-module"],
+      "profiles/contrib/{$name}": ["type:drupal-profile"],
+      "themes/contrib/{$name}": ["type:drupal-theme"],
+      "drush/contrib/{$name}": ["type:drupal-drush"],
+      "modules/custom/{$name}": ["type:drupal-custom-module"],
+      "themes/custom/{$name}": ["type:drupal-custom-theme"]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Drupal\\Core\\Composer\\": "core/lib/Drupal/Core/Composer"
+    }
   },
   "scripts": {
-    "post-create-project-cmd": [
-            "phing -debug"
-        ],
-    "post-install-cmd": [
-            "phing -debug"
-        ],
-    "lint": [
-      "./vendor/bin/phplint",
-      "./vendor/bin/phpcs --config-set installed_paths ./../../drupal/coder/coder_sniffer",
-      "./vendor/bin/phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=install,module,php,inc"
-    ],
-    "test": [
-      "./vendor/bin/phplint --no-cache",
-      "./vendor/bin/phpcs --config-set installed_paths ./../../drupal/coder/coder_sniffer",
-      "./vendor/bin/phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=php,inc themes || true"
-    ]
-  }  
+    "pre-autoload-dump": "Drupal\\Core\\Composer\\Composer::preAutoloadDump",
+    "post-autoload-dump": "Drupal\\Core\\Composer\\Composer::ensureHtaccess",
+    "post-package-install": "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup",
+    "post-package-update": "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup",
+    "drupal-phpunit-upgrade-check": "Drupal\\Core\\Composer\\Composer::upgradePHPUnit",
+    "drupal-phpunit-upgrade": "@composer update phpunit/phpunit phpspec/prophecy symfony/yaml --with-dependencies --no-progress",
+    "phpcs": "phpcs --standard=core/phpcs.xml.dist --runtime-set installed_paths $($COMPOSER_BINARY config vendor-dir)/drupal/coder/coder_sniffer --",
+    "phpcbf": "phpcbf --standard=core/phpcs.xml.dist --runtime-set installed_paths $($COMPOSER_BINARY config vendor-dir)/drupal/coder/coder_sniffer --"
+  },
+  "repositories": [{
+    "type": "composer",
+    "url": "https://packages.drupal.org/8"
+  }]
 }
