@@ -1,1 +1,0 @@
-#2802191 by jespermb: Added initial drupal 8 development.

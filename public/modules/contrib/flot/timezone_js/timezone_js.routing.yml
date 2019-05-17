@@ -1,7 +1,0 @@
-timezone_js.northamerica:
-  path: '/tz/{filename}'
-  defaults:
-    _controller: '\Drupal\timezone_js\Controller\TimezoneJS::file'
-    _title: 'Raw Data'
-  requirements:
-    _permission: 'access content'

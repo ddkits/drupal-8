@@ -1,6 +1,0 @@
-registration.settings:
-  type: mapping
-  label: Settings
-  mapping:
-    registration_paths_administrative:
-      type: boolean
