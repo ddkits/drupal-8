@@ -23,7 +23,7 @@
         "drupal/rules": "^3.0@alpha",
         "drupal/jsonapi": "^1.23",
         "drupal/admin_toolbar": "^1.25",
-        "symfony/http-foundation": "~3.4.14",
+        "symfony/http-foundation": "*",
         "drupal/entity_reference_revisions": "^1.6",
         "drupal/paragraphs": "^1.5",
         "drupal/select2": "1.1.0",
