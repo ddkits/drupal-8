@@ -6,7 +6,7 @@
     "require": {
         "composer/installers": "^1.0.24",
         "wikimedia/composer-merge-plugin": "^1.4",
-        "drupal/core": "^8.6"
+        "drupal/core": "^8.6",
         "drupal/basic": "^2.0",
         "drupal/console": "~1.0",
         "drupal/search_api_pantheon": "~1.0",
