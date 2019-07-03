@@ -5,7 +5,36 @@
     "license": "GPL-2.0-or-later",
     "require": {
         "composer/installers": "^1.0.24",
-        "wikimedia/composer-merge-plugin": "^1.4"
+        "wikimedia/composer-merge-plugin": "^1.4",
+        "drupal/bootstrap_barrio": "^4.22",
+        "drupal/bootstrap_library": "^1.11",
+        "drupal/bootstrap4": "^1.0@beta",
+        "drupal/bootbase": "^1.18",
+        "drupal/core": "^8.6.13",
+        "drupal/console": "*",
+        "drupal/devel": "*",
+        "drupal/kint": "*",
+        "drupal/superfish": "*",
+        "drupal/jsonapi": "*",
+        "drupal/admin_toolbar": "*",
+        "symfony/http-foundation": "*",
+        "drupal/entity_reference_revisions": "*",
+        "drupal/paragraphs": "*",
+        "drupal/select2": "*",
+        "drupal/block_field": "*",
+        "drupal/module_filter": "*",
+        "drupal/better_exposed_filters": "*",
+        "drupal/fontawesome": "*",
+        "drupal/menu_export": "*",
+        "drupal/views_accordion": "*",
+        "drupal/webform": "*",
+        "drupal/fixed_block_content": "*",
+        "drupal/styleguide": "*",
+        "drupal/toc_filter": "*",
+        "drupal/ctools": "*",
+        "drupal/panels": "*",
+        "drupal/pathauto": "*",
+        "drupal/slick_extras": "*"
     },
     "replace": {
         "drupal/core": "^8.7"
@@ -33,13 +62,27 @@
             "merge-extra": false
         },
         "installer-paths": {
-            "core": ["type:drupal-core"],
-            "modules/contrib/{$name}": ["type:drupal-module"],
-            "profiles/contrib/{$name}": ["type:drupal-profile"],
-            "themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/contrib/{$name}": ["type:drupal-drush"],
-            "modules/custom/{$name}": ["type:drupal-custom-module"],
-            "themes/custom/{$name}": ["type:drupal-custom-theme"]
+            "core": [
+                "type:drupal-core"
+            ],
+            "modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/contrib/{$name}": [
+                "type:drupal-drush"
+            ],
+            "modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ]
         }
     },
     "autoload": {
