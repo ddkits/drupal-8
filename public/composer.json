@@ -1,68 +1,46 @@
 {
-    "name": "drupal/drupal",
-    "description": "Drupal is an open source content management platform powering millions of websites and applications.",
+    "name": "drupal/legacy-project",
+    "description": "Project template for Drupal 8 projects with composer following drupal/drupal layout",
     "type": "project",
     "license": "GPL-2.0-or-later",
-    "require": {
-        "composer/installers": "^1.0.24",
-        "wikimedia/composer-merge-plugin": "^1.4",
-        "drupal/bootstrap_barrio": "^4.22",
-        "drupal/bootstrap_library": "^1.11",
-        "drupal/bootstrap4": "^1.0@beta",
-        "drupal/bootbase": "^1.18",
-        "drupal/core": "^8.6.13",
-        "drupal/console": "*",
-        "drupal/devel": "*",
-        "drupal/kint": "*",
-        "drupal/superfish": "*",
-        "drupal/admin_toolbar": "*",
-        "symfony/http-foundation": "*",
-        "drupal/entity_reference_revisions": "*",
-        "drupal/paragraphs": "*",
-        "drupal/select2": "*",
-        "drupal/block_field": "*",
-        "drupal/module_filter": "*",
-        "drupal/better_exposed_filters": "*",
-        "drupal/fontawesome": "*",
-        "drupal/menu_export": "*",
-        "drupal/views_accordion": "*",
-        "drupal/webform": "*",
-        "drupal/fixed_block_content": "*",
-        "drupal/styleguide": "*",
-        "drupal/toc_filter": "*",
-        "drupal/ctools": "*",
-        "drupal/panels": "*",
-        "drupal/pathauto": "*",
-        "drupal/slick_extras": "*"
+    "homepage": "https://www.drupal.org/project/drupal",
+    "support": {
+        "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
+        "chat": "https://www.drupal.org/node/314178"
     },
-    "replace": {
-        "drupal/core": "^8.7"
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "composer/installers": "^1.2",
+        "drupal/core-composer-scaffold": "^8.8",
+        "drupal/core-project-message": "^8.8",
+        "drupal/core-recommended": "^8.8",
+        "drupal/core-vendor-hardening": "^8.8"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "preferred-install": "dist",
-        "autoloader-suffix": "Drupal8"
+        "sort-packages": true
     },
     "extra": {
-        "_readme": [
-            "By default Drupal loads the autoloader from ./vendor/autoload.php.",
-            "To change the autoloader you can edit ./autoload.php.",
-            "This file specifies the packages.drupal.org repository.",
-            "You can read more about this composer repository at:",
-            "https://www.drupal.org/node/2718229"
-        ],
-        "merge-plugin": {
-            "include": [
-                "core/composer.json"
-            ],
-            "recurse": true,
-            "replace": false,
-            "merge-extra": false
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "./"
+            }
         },
         "installer-paths": {
             "core": [
                 "type:drupal-core"
+            ],
+            "libraries/{$name}": [
+                "type:drupal-library"
             ],
             "modules/contrib/{$name}": [
                 "type:drupal-module"
@@ -73,7 +51,7 @@
             "themes/contrib/{$name}": [
                 "type:drupal-theme"
             ],
-            "drush/contrib/{$name}": [
+            "drush/Commands/contrib/{$name}": [
                 "type:drupal-drush"
             ],
             "modules/custom/{$name}": [
@@ -82,27 +60,27 @@
             "themes/custom/{$name}": [
                 "type:drupal-custom-theme"
             ]
+        },
+        "drupal-core-project-message": {
+            "include-keys": [
+                "homepage",
+                "support"
+            ],
+            "post-create-project-cmd-message": [
+                "<bg=blue;fg=white>                                                         </>",
+                "<bg=blue;fg=white>  Congratulations, you’ve installed the Drupal codebase  </>",
+                "<bg=blue;fg=white>  from the drupal/legacy-project template!               </>",
+                "<bg=blue;fg=white>                                                         </>",
+                "",
+                "<bg=yellow;fg=black>Next steps</>:",
+                "  * Install the site: https://www.drupal.org/docs/8/install",
+                "  * Read the user guide: https://www.drupal.org/docs/user_guide/en/index.html",
+                "  * Get support: https://www.drupal.org/support",
+                "  * Get involved with the Drupal community:",
+                "      https://www.drupal.org/getting-involved",
+                "  * Remove the plugin that prints this message:",
+                "      composer remove drupal/core-project-message"
+            ]
         }
-    },
-    "autoload": {
-        "psr-4": {
-            "Drupal\\Core\\Composer\\": "core/lib/Drupal/Core/Composer"
-        }
-    },
-    "scripts": {
-        "pre-autoload-dump": "Drupal\\Core\\Composer\\Composer::preAutoloadDump",
-        "post-autoload-dump": "Drupal\\Core\\Composer\\Composer::ensureHtaccess",
-        "post-package-install": "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup",
-        "post-package-update": "Drupal\\Core\\Composer\\Composer::vendorTestCodeCleanup",
-        "drupal-phpunit-upgrade-check": "Drupal\\Core\\Composer\\Composer::upgradePHPUnit",
-        "drupal-phpunit-upgrade": "@composer update phpunit/phpunit phpspec/prophecy symfony/yaml --with-dependencies --no-progress",
-        "phpcs": "phpcs --standard=core/phpcs.xml.dist --runtime-set installed_paths $($COMPOSER_BINARY config vendor-dir)/drupal/coder/coder_sniffer --",
-        "phpcbf": "phpcbf --standard=core/phpcs.xml.dist --runtime-set installed_paths $($COMPOSER_BINARY config vendor-dir)/drupal/coder/coder_sniffer --"
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
-        }
-    ]
+    }
 }

@@ -9,6 +9,7 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\node\Entity\NodeType;
+use Drupal\Tests\ckeditor\Traits\CKEditorTestTrait;
 
 /**
  * Tests the integration of CKEditor.
@@ -16,6 +17,13 @@ use Drupal\node\Entity\NodeType;
  * @group ckeditor
  */
 class CKEditorIntegrationTest extends WebDriverTestBase {
+
+  use CKEditorTestTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
 
   /**
    * The account.
@@ -160,7 +168,8 @@ class CKEditorIntegrationTest extends WebDriverTestBase {
 
     // If the caption filter is disabled, its checkbox should be absent.
     $this->drupalGet('node/add/page');
-    $this->click('.cke_button__drupalimage');
+    $this->waitForEditor();
+    $this->pressEditorButton('drupalimage');
     $this->assertNotEmpty($web_assert->waitForElement('css', '.ui-dialog'));
     $web_assert->elementNotExists('css', '.ui-dialog input[name="attributes[hasCaption]"]');
 
@@ -170,9 +179,10 @@ class CKEditorIntegrationTest extends WebDriverTestBase {
     ]);
     $this->filterFormat->save();
 
-    // If the caption filter is enabled,  its checkbox should be present.
+    // If the caption filter is enabled, its checkbox should be present.
     $this->drupalGet('node/add/page');
-    $this->click('.cke_button__drupalimage');
+    $this->waitForEditor();
+    $this->pressEditorButton('drupalimage');
     $this->assertNotEmpty($web_assert->waitForElement('css', '.ui-dialog'));
     $web_assert->elementExists('css', '.ui-dialog input[name="attributes[hasCaption]"]');
   }
@@ -201,6 +211,27 @@ class CKEditorIntegrationTest extends WebDriverTestBase {
     $assert_session->elementExists('css', '.cke_button__source');
     $ckeditor_source_button_bg_color = $this->getSession()->evaluateScript('window.getComputedStyle(document.getElementsByClassName(\'cke_button__source\')[0]).backgroundColor');
     $this->assertEqual($ckeditor_source_button_bg_color, 'rgba(0, 0, 0, 0)');
+
+    // Check that only one off-canvas style is cached in local storage and that
+    // it gets updated with the cache-busting query string.
+    $get_cache_keys = 'Object.keys(window.localStorage).filter(function (i) {return i.indexOf(\'Drupal.off-canvas.css.\') === 0})';
+    $old_keys = $this->getSession()->evaluateScript($get_cache_keys);
+    // Flush the caches to ensure the new timestamp is altered into the
+    // drupal.ckeditor library's javascript settings.
+    drupal_flush_all_caches();
+    // Normally flushing caches regenerates the cache busting query string, but
+    // as it's based on the request time, it won't change within this test so
+    // explicitly set it.
+    \Drupal::state()->set('system.css_js_query_string', '0');
+    $this->drupalGet('/ckeditor_test/off_canvas');
+    $page->clickLink('Add Node');
+    $assert_session->waitForElementVisible('css', '#drupal-off-canvas');
+    $assert_session->assertWaitOnAjaxRequest();
+    $new_keys = $this->getSession()->evaluateScript($get_cache_keys);
+
+    $this->assertCount(1, $old_keys, 'Only one off-canvas style was cached before clearing caches.');
+    $this->assertCount(1, $new_keys, 'Only one off-canvas style was cached after clearing caches.');
+    $this->assertNotEquals($old_keys, $new_keys, 'Clearing caches changed the off-canvas style cache key.');
   }
 
 }
